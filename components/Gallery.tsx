@@ -1,4 +1,3 @@
-// components/Gallery.tsx
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -59,7 +58,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
         {selectedImage ? (
           <div onClick={handleMainImageClick} className="cursor-pointer">
             <Image
-              alt={selectedImage.title || 'Selected gallery photo'}
+              alt="Selected gallery photo"
               className="rounded-lg"
               placeholder="blur"
               blurDataURL={selectedImage.blurDataUrl}
