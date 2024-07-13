@@ -1,3 +1,4 @@
+// components/GalleryModal.tsx
 import { Dialog } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -6,35 +7,44 @@ import useKeypress from 'react-use-keypress';
 import type { ImageProps } from '../utils/types';
 import SharedModal from './SharedModal';
 
-const GalleryModal = ({
-  images,
-  onClose,
-}: {
+interface GalleryModalProps {
   images: ImageProps[];
   onClose?: () => void;
-}) => {
-  const overlayRef = useRef(null);
+}
+
+export default function GalleryModal({
+  images,
+  onClose,
+}: GalleryModalProps) {
+  let overlayRef = useRef();
   const router = useRouter();
+
   const { photoId } = router.query;
-  const index = Number(photoId);
+  let index = Number(photoId);
+
   const [direction, setDirection] = useState(0);
   const [curIndex, setCurIndex] = useState(index);
 
-  const handleClose = () => {
-    onClose?.();
-  };
+  function handleClose() {
+    router.push('/', undefined, { shallow: true });
+    onClose && onClose();
+  }
 
-  const changePhotoId = (newVal: number) => {
-    setDirection(newVal > index ? 1 : -1);
+  function changePhotoId(newVal: number) {
+    if (newVal > index) {
+      setDirection(1);
+    } else {
+      setDirection(-1);
+    }
     setCurIndex(newVal);
     router.push(
       {
         query: { photoId: newVal },
       },
       `/p/${newVal}`,
-      { shallow: true }
+      { shallow: true },
     );
-  };
+  }
 
   useKeypress('ArrowRight', () => {
     if (index + 1 < images.length) {
@@ -76,13 +86,11 @@ const GalleryModal = ({
       />
       {selectedImage && (
         <div className="absolute bottom-4 left-4 right-4 bg-white p-4 rounded-lg shadow-lg">
-          {selectedImage.caption && <p className="text-lg font-semibold">{selectedImage.caption}</p>}
+          {selectedImage.title && <p className="text-lg font-semibold">{selectedImage.title}</p>}
           {selectedImage.description && <p className="mt-2">{selectedImage.description}</p>}
           {selectedImage.details && <p className="mt-2 text-sm text-gray-600">{selectedImage.details}</p>}
         </div>
       )}
     </Dialog>
   );
-};
-
-export default GalleryModal;
+}
