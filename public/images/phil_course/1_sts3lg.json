@@ -1,0 +1,36 @@
+{
+  "asset_id": "d434e042ab70d2dbf1de9d0367c65a9e",
+  "public_id": "1_sts3lg",
+  "asset_folder": "phil_course",
+  "filename": "1_sts3lg",
+  "display_name": "1_sts3lg",
+  "format": "webp",
+  "version": 1720896522,
+  "resource_type": "image",
+  "type": "upload",
+  "created_at": "2024-07-13T18:48:42+00:00",
+  "uploaded_at": "2024-07-13T18:48:42+00:00",
+  "bytes": 422870,
+  "backup_bytes": 0,
+  "width": 1024,
+  "height": 1024,
+  "aspect_ratio": 1,
+  "pixels": 1048576,
+  "pages": 1,
+  "url": "http://res.cloudinary.com/drxaqrvcv/image/upload/v1720896522/1_sts3lg.webp",
+  "secure_url": "https://res.cloudinary.com/drxaqrvcv/image/upload/v1720896522/1_sts3lg.webp",
+  "status": "active",
+  "access_mode": "public",
+  "access_control": null,
+  "etag": "ac4be44cb8e871676025213ce4a28d80",
+  "created_by": {
+    "access_key": "736882898498137",
+    "custom_id": "austinorge@yahoo.com",
+    "external_id": "cfe5d4d968eb1f921f9877a18fdad7"
+  },
+  "uploaded_by": {
+    "access_key": "736882898498137",
+    "custom_id": "austinorge@yahoo.com",
+    "external_id": "cfe5d4d968eb1f921f9877a18fdad7"
+  }
+}

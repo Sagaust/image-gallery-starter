@@ -7,3 +7,66 @@
     clip-path: inset(0.6px);
   }
 }
+
+/* Custom styles */
+body {
+  @apply bg-gray-100 text-gray-900 antialiased;
+}
+
+header, footer {
+  @apply bg-gray-800 text-white;
+}
+
+header a, footer a {
+  @apply text-white hover:underline;
+}
+
+main {
+  @apply flex h-screen overflow-hidden;
+}
+
+aside {
+  @apply w-1/4 overflow-y-scroll bg-gray-900 p-4;
+}
+
+section {
+  @apply flex-1 p-4 relative;
+}
+
+/* Image Card Styles */
+.image-card {
+  @apply relative block mb-6 cursor-pointer;
+}
+
+.image-card img {
+  @apply transition-transform duration-300 transform rounded-lg shadow-lg;
+}
+
+.image-card-title {
+  @apply absolute top-0 left-0 w-full p-4 bg-gradient-to-b from-black/70 to-transparent text-white;
+}
+
+.image-card-title h3 {
+  @apply text-lg font-semibold truncate;
+}
+
+.image-card-description {
+  @apply mt-2 p-4 bg-white shadow-lg rounded-lg;
+}
+
+.image-card-description p {
+  @apply text-gray-700;
+}
+
+/* Control Panel Styles */
+.control-panel {
+  @apply flex items-center space-x-4;
+}
+
+.control-panel button {
+  @apply p-2 bg-gray-800 text-white rounded-lg shadow;
+}
+
+.control-panel button:hover {
+  @apply bg-gray-700;
+}

@@ -1,19 +1,18 @@
-/* eslint-disable no-unused-vars */
-export interface ImageProps {
+export type ImageProps = {
   id: number;
-  height: string;
-  width: string;
   public_id: string;
   format: string;
+  version: number;
+  resource_type: string;
+  type: string;
+  created_at: string;
+  bytes: number;
+  width: number;
+  height: number;
+  url: string;
+  secure_url: string;
+  folder: string;
   blurDataUrl?: string;
-}
-
-export interface SharedModalProps {
-  index: number;
-  images?: ImageProps[];
-  currentPhoto?: ImageProps;
-  changePhotoId: (newVal: number) => void;
-  closeModal: () => void;
-  navigation: boolean;
-  direction?: number;
-}
+  title?: string; // Add title field
+  description?: string; // Add description field
+};

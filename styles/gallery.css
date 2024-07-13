@@ -1,0 +1,40 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  
+  .gallery-item {
+    position: relative;
+    width: 300px; /* Adjust as needed */
+    margin-bottom: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  
+  .image-caption {
+    padding: 16px;
+    background-color: #f8f8f8;
+    text-align: center;
+  }
+  
+  .image-title {
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+  
+  .image-description {
+    margin: 0;
+    font-size: 1em;
+    color: #555;
+  }
+  

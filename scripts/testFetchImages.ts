@@ -1,0 +1,95 @@
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import fs from 'fs';
+import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+import cloudinary from '../utils/cloudinary';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Explicitly load .env.local
+dotenv.config({ path: join(__dirname, '../.env.local') });
+
+console.log('Cloudinary Config:', {
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+});
+
+const saveDirectory = join(__dirname, '../public/images/phil_course');
+const mongoUri = process.env.MONGODB_URI as string;
+
+async function fetchAndSaveImages() {
+  const client = new MongoClient(mongoUri);
+
+  try {
+    await client.connect();
+    const database = client.db('image_gallery');
+    const collection = database.collection('images');
+
+    // Ensure the save directory exists
+    if (!fs.existsSync(saveDirectory)) {
+      fs.mkdirSync(saveDirectory, { recursive: true });
+    }
+
+    // Fetch images from Cloudinary
+    const response = await cloudinary.search
+      .expression('folder:phil_course') // Specify the folder here
+      .max_results(100)
+      .execute();
+
+    const images = response.resources;
+
+    // Save each image to the save directory and metadata to MongoDB
+    for (const image of images) {
+      const imageUrl = image.url;
+      const imagePath = join(saveDirectory, `${image.public_id}.${image.format}`);
+
+      // Fetch the image data
+      const imageResponse = await fetch(imageUrl);
+      const imageBuffer = await imageResponse.buffer();
+
+      // Save the image data to the file
+      fs.writeFileSync(imagePath, imageBuffer);
+      console.log(`Saved image: ${imagePath}`);
+
+      // Save metadata to a JSON file
+      const metadataPath = join(saveDirectory, `${image.public_id}.json`);
+      fs.writeFileSync(metadataPath, JSON.stringify(image, null, 2));
+      console.log(`Saved metadata: ${metadataPath}`);
+
+      // Save metadata to MongoDB
+      const metadata = {
+        public_id: image.public_id,
+        format: image.format,
+        version: image.version,
+        resource_type: image.resource_type,
+        type: image.type,
+        created_at: image.created_at,
+        bytes: image.bytes,
+        width: image.width,
+        height: image.height,
+        url: image.url,
+        secure_url: image.secure_url,
+        folder: 'phil_course', // Add folder information if needed
+      };
+
+      await collection.updateOne(
+        { public_id: image.public_id },
+        { $set: metadata },
+        { upsert: true }
+      );
+      console.log(`Saved metadata to MongoDB for image: ${image.public_id}`);
+    }
+
+    console.log('All images and their metadata have been fetched, saved, and stored in MongoDB.');
+  } catch (error) {
+    console.error('Error fetching and saving images:', error);
+  } finally {
+    await client.close();
+  }
+}
+
+fetchAndSaveImages();

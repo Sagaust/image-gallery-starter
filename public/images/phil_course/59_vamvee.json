@@ -1,0 +1,36 @@
+{
+  "asset_id": "eca9e87df1bf2a36732821d12744e9ab",
+  "public_id": "59_vamvee",
+  "asset_folder": "phil_course",
+  "filename": "59_vamvee",
+  "display_name": "59_vamvee",
+  "format": "webp",
+  "version": 1720896568,
+  "resource_type": "image",
+  "type": "upload",
+  "created_at": "2024-07-13T18:49:28+00:00",
+  "uploaded_at": "2024-07-13T18:49:28+00:00",
+  "bytes": 529552,
+  "backup_bytes": 0,
+  "width": 1024,
+  "height": 1024,
+  "aspect_ratio": 1,
+  "pixels": 1048576,
+  "pages": 1,
+  "url": "http://res.cloudinary.com/drxaqrvcv/image/upload/v1720896568/59_vamvee.webp",
+  "secure_url": "https://res.cloudinary.com/drxaqrvcv/image/upload/v1720896568/59_vamvee.webp",
+  "status": "active",
+  "access_mode": "public",
+  "access_control": null,
+  "etag": "86aff9dadddec1253d3916303007d877",
+  "created_by": {
+    "access_key": "736882898498137",
+    "custom_id": "austinorge@yahoo.com",
+    "external_id": "cfe5d4d968eb1f921f9877a18fdad7"
+  },
+  "uploaded_by": {
+    "access_key": "736882898498137",
+    "custom_id": "austinorge@yahoo.com",
+    "external_id": "cfe5d4d968eb1f921f9877a18fdad7"
+  }
+}

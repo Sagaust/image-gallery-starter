@@ -1,0 +1,36 @@
+{
+  "asset_id": "9146fbb6ac4c0ce1cf1562c1a97bd038",
+  "public_id": "20_zf1ytf",
+  "asset_folder": "phil_course",
+  "filename": "20_zf1ytf",
+  "display_name": "20_zf1ytf",
+  "format": "webp",
+  "version": 1720896530,
+  "resource_type": "image",
+  "type": "upload",
+  "created_at": "2024-07-13T18:48:50+00:00",
+  "uploaded_at": "2024-07-13T18:48:50+00:00",
+  "bytes": 417748,
+  "backup_bytes": 0,
+  "width": 1024,
+  "height": 1024,
+  "aspect_ratio": 1,
+  "pixels": 1048576,
+  "pages": 1,
+  "url": "http://res.cloudinary.com/drxaqrvcv/image/upload/v1720896530/20_zf1ytf.webp",
+  "secure_url": "https://res.cloudinary.com/drxaqrvcv/image/upload/v1720896530/20_zf1ytf.webp",
+  "status": "active",
+  "access_mode": "public",
+  "access_control": null,
+  "etag": "99c97524020e9a7e9d8b227111948e9f",
+  "created_by": {
+    "access_key": "736882898498137",
+    "custom_id": "austinorge@yahoo.com",
+    "external_id": "cfe5d4d968eb1f921f9877a18fdad7"
+  },
+  "uploaded_by": {
+    "access_key": "736882898498137",
+    "custom_id": "austinorge@yahoo.com",
+    "external_id": "cfe5d4d968eb1f921f9877a18fdad7"
+  }
+}

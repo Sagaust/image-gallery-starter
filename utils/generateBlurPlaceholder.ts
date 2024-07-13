@@ -1,3 +1,4 @@
+// utils/generateBlurPlaceholder.ts
 import imagemin from "imagemin";
 import imageminJpegtran from "imagemin-jpegtran";
 import type { ImageProps } from "./types";
@@ -7,6 +8,10 @@ const cache = new Map<ImageProps, string>();
 export default async function getBase64ImageUrl(
   image: ImageProps,
 ): Promise<string> {
+  if (typeof window !== 'undefined') {
+    throw new Error("getBase64ImageUrl should only be called on the server side");
+  }
+
   let url = cache.get(image);
   if (url) {
     return url;
