@@ -30,16 +30,16 @@ aside {
 }
 
 section {
-  @apply flex-1 p-4 relative;
+  @apply flex-1 p-4;
 }
 
 /* Image Card Styles */
 .image-card {
-  @apply relative block mb-6 cursor-pointer;
+  @apply relative block mb-6 cursor-pointer group;
 }
 
 .image-card img {
-  @apply transition-transform duration-300 transform rounded-lg shadow-lg;
+  @apply transition-transform duration-300 transform group-hover:scale-105 rounded-lg shadow-lg;
 }
 
 .image-card-title {
@@ -58,15 +58,27 @@ section {
   @apply text-gray-700;
 }
 
-/* Control Panel Styles */
-.control-panel {
-  @apply flex items-center space-x-4;
+/* Modal Styles */
+.modal {
+  @apply relative z-50 flex aspect-[3/2] w-full max-w-7xl items-center wide:h-full xl:taller-than-854:h-auto;
 }
 
-.control-panel button {
-  @apply p-2 bg-gray-800 text-white rounded-lg shadow;
+.modal-overlay {
+  @apply absolute inset-0 z-30 bg-black/70 backdrop-blur-2xl;
 }
 
-.control-panel button:hover {
-  @apply bg-gray-700;
+.modal-content {
+  @apply relative flex aspect-[3/2] items-center justify-center;
+}
+
+.modal-title {
+  @apply absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-4;
+}
+
+.modal-title h3 {
+  @apply text-lg font-semibold;
+}
+
+.modal-title p {
+  @apply mt-2;
 }

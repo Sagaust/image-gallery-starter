@@ -6,10 +6,12 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   XMarkIcon,
-} from '@heroicons/react/24/solid';
+  PlayIcon,
+  PauseIcon,
+} from '@heroicons/react/24/outline';
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { variants } from '../utils/animationVariants';
 import downloadPhoto from '../utils/downloadPhoto';
@@ -27,7 +29,7 @@ export default function SharedModal({
   direction,
 }: SharedModalProps) {
   const [loaded, setLoaded] = useState(false);
-
+  const [isPlaying, setIsPlaying] = useState(false);
   let filteredImages = images?.filter((img: ImageProps) =>
     range(index - 15, index + 15).includes(img.id),
   );
@@ -47,6 +49,24 @@ export default function SharedModal({
   });
 
   let currentImage = images ? images[index] : currentPhoto;
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isPlaying) {
+      interval = setInterval(() => {
+        if (index < images.length - 1) {
+          changePhotoId(index + 1);
+        } else {
+          setIsPlaying(false);
+        }
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [isPlaying, index, images.length, changePhotoId]);
+
+  const togglePlayPause = () => {
+    setIsPlaying((prev) => !prev);
+  };
 
   return (
     <MotionConfig
@@ -81,7 +101,7 @@ export default function SharedModal({
                   width={navigation ? 1280 : 1920}
                   height={navigation ? 853 : 1280}
                   priority
-                  alt={currentImage.title || 'Next.js Conf image'}
+                  alt={currentImage.title || 'Gallery Image'}
                   onLoad={() => setLoaded(true)}
                 />
               </motion.div>
@@ -132,7 +152,7 @@ export default function SharedModal({
                     href={`https://twitter.com/intent/tweet?text=Check%20out%20this%20pic%20from%20Next.js%20Conf!%0A%0Ahttps://nextjsconf-pics.vercel.app/p/${index}`}
                     className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
                     target="_blank"
-                    title="Share on Twitter"
+                    title="Open fullsize version"
                     rel="noreferrer"
                   >
                     <Twitter className="h-5 w-5" />
@@ -196,27 +216,28 @@ export default function SharedModal({
                       } relative inline-block w-full shrink-0 transform-gpu overflow-hidden focus:outline-none`}
                     >
                       <Image
-                        alt={title || 'small photos on the bottom'}
+                        alt="small photos on the bottom"
                         width={180}
                         height={120}
                         className={`${
                           id === index
                             ? 'brightness-110 hover:brightness-110'
                             : 'brightness-50 contrast-125 hover:brightness-75'
-                        } h-full transform object-cover transition`}
-                        src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_180/${public_id}.${format}`}
-                      />
-                      <div className="absolute bottom-0 left-0 w-full p-2 bg-gradient-to-t from-black/60 to-transparent text-white text-sm">
-                        {title && <p className="truncate">{title}</p>}
-                      </div>
-                    </motion.button>
-                  ))}
-                </AnimatePresence>
-              </motion.div>
-            </div>
-          )}
+                          } h-full transform object-cover transition`}
+                          src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_180/${public_id}.${format}`}
+                        />
+                        <div className="absolute bottom-0 left-0 w-full p-2 bg-gradient-to-t from-black/60 to-transparent text-white text-sm">
+                          {title && <p className="truncate">{title}</p>}
+                        </div>
+                      </motion.button>
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </MotionConfig>
-  );
-}
+      </MotionConfig>
+    );
+  }
+  
