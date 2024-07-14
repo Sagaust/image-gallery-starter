@@ -1,6 +1,6 @@
 // components/Header.tsx
-import React from 'react';
-import { ChevronLeftIcon, ChevronRightIcon, PlayIcon, PauseIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import ControlPanel from './ControlPanel';
 
 interface HeaderProps {
   autoPlay: boolean;
@@ -16,22 +16,29 @@ const Header: React.FC<HeaderProps> = ({
   handleToggleAutoPlay,
 }) => {
   return (
-    <header className="p-4 bg-gray-800 text-white flex justify-between items-center">
-      <div>
-        <button onClick={handlePreviousImage} className="mr-2">
-          <ChevronLeftIcon className="h-6 w-6" />
-        </button>
-        <button onClick={handleNextImage} className="mr-2">
-          <ChevronRightIcon className="h-6 w-6" />
-        </button>
-        <button onClick={handleToggleAutoPlay}>
-          {autoPlay ? (
-            <PauseIcon className="h-6 w-6" />
-          ) : (
-            <PlayIcon className="h-6 w-6" />
-          )}
-        </button>
+    <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <div className="flex items-center space-x-4">
+        <Link href="/">
+          <a className="text-xl font-bold">Philos DH Gallery</a>
+        </Link>
+        <nav>
+          <Link href="/">
+            <a className="mx-2">Home</a>
+          </Link>
+          <Link href="/about">
+            <a className="mx-2">About</a>
+          </Link>
+          <Link href="/contact">
+            <a className="mx-2">Contact</a>
+          </Link>
+        </nav>
       </div>
+      <ControlPanel
+        autoPlay={autoPlay}
+        handlePreviousImage={handlePreviousImage}
+        handleNextImage={handleNextImage}
+        handleToggleAutoPlay={handleToggleAutoPlay}
+      />
     </header>
   );
 };
