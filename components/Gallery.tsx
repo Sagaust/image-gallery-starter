@@ -130,34 +130,53 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
               <div className="text-center">
                 <Logo />
                 <Accordion
-                  title="About Philos DH Gallery"
-                  content={`This project titled Philos DH: Learning Philosophy with the use of pictures is one of the outstanding projects that I've recently completed.
-                  And it's exciting for many reasons because we have the combination of front-end and back-end which Next.js enabled, and then we have the database operation coming from MongoDB and a powerful image database named Superbase from which the images are stored programmatically fetched in the development area, and the metadata are systematically processed through automation, knowing that the application involves a very large number of images.
-                  Most of these images are AI generated and categorized into folders that are clearly named in the Superbase, and these folders are fetched separately in the app with the use of well-defined variables in the .env.local file, which is the environmental variables.
-                  As you will see in the app, the app is made up of various components.
-                  We have, in the landing page, the sidebar which has various images that come from the option that the user chooses in the navigation.
-                  For instance, if the user chooses philosophy courses, the app communicates with the Superbase, which is the image repository, to fetch images particularly stored in the philosophy courses folder.
-                  These images are fetched along with their metadata, with targets at the title and the description.
-                  The descriptions are collapsed so all the detailed descriptions is not visible until the user clicks on it to be able to see the description and can hide it back and the user can scroll through the sidebar to navigate through the choice of the image they want to visualize in the main bar.
-                  If they click on any image, it's going to be have the bigger version in the main bar and there is a control button, the main bar which enables them to either also navigate forward and backward or even play without touching. When they click on play, it's automatically through timing scrolls through the collections that they are currently in as selected in the navigation in the navigation bar.
-                  Interestingly because of other components that are also in the app, when the user clicks on the bigger or the larger image in the main content area, an image model comes up which also has a corrosive and this enables them to have a very fast navigation through the bigger or the larger versions of the images and have it as a full screen display on their web browser.
-                  And they also have the capability to also open their preferred image as a search tool, open a separate one on a full size screen in a different webpage while they still preserve the other webpage where they have the modal and the carousel.
-                  Interestingly, they are also given the permission to be able to download the image and use it so far as it is referenced. The copyright is referenced from the work of the scholar or the digital humanist creator that works on this, so they can collapse and go back to the main page as well as interact further.
-                  Essentially, the aim of the app is to help either beginners or intermediate or advanced students in philosophy to be able to understand difficult concepts through pictures in such a way that the ideas have been visualized through prompts that has been sent to the large language model that generates the images and those prompts were clearly given to light language model in such a way that we can visualize ideas and that is essentially what this app brings to the user.
-                  I hope you'll be able to find your way through. Please. You can send your remarks, comments, contributions, opinion, suggestion, testimony, and experience across the user through by clicking on the Contact Us button.
-                  Thanks for using this Philos DH picture gallery app.`}
+                  title="Welcome to Philos d - Learning Philosophy Through Pictures"
+                  content={`Philos d is an innovative project designed to make learning philosophy both engaging and accessible. By utilizing AI-generated images and a powerful backend infrastructure, we bring philosophical concepts to life through captivating visuals.`}
+                />
+                <Accordion
+                  title="A Unique Approach to Understanding Philosophy"
+                  content={`Our application seamlessly integrates frontend and backend technologies, with Next.js providing a robust framework for development and MongoDB handling our database operations. Images are stored and fetched from Superbase, an advanced image database, ensuring high efficiency and performance.`}
+                />
+                <Accordion
+                  title="Cutting-Edge Technology"
+                  content={`Handling a large volume of images is made simple with our automated metadata processing. Images and their metadata, including titles and descriptions, are programmatically fetched and organized. This ensures a streamlined and user-friendly experience.`}
+                />
+                <Accordion
+                  title="Automated Metadata Processing"
+                  content={`Images are categorized into clearly named folders in Superbase, allowing users to easily navigate and find the content they need. Each folder can be accessed through environmental variables defined in the .env.local file, ensuring secure and organized data management.`}
+                />
+                <Accordion
+                  title="Organized Image Folders"
+                  content={`Our application is built with a variety of dynamic components to enhance user experience:
+                    - Sidebar: Displays images based on the user’s selection from the navigation menu. For example, choosing "Philosophy Courses" fetches related images from the corresponding folder in Superbase.
+                    - Main Content Area: Shows a larger version of the selected image. Users can navigate through images using control buttons to move forward, backward, or play a slideshow.
+                    - Image Modal: Clicking on a larger image opens an image modal with a carousel for quick navigation through the collection. The modal supports full-screen display and image downloading with proper attribution.`}
+                />
+                <Accordion
+                  title="Dynamic Components"
+                  content={`- Collapsible Descriptions: Image descriptions are initially collapsed, allowing users to click and view detailed information as needed.
+                    - Control Buttons: Easily navigate through images with forward, backward, play, and pause controls.
+                    - Full-Screen Mode: View images in full-screen for a more immersive experience.`}
+                />
+                <Accordion
+                  title="User-Friendly Navigation"
+                  content={`Our app is designed to assist learners at all levels—beginners, intermediates, and advanced students. By visualizing complex philosophical concepts through AI-generated images, we make abstract ideas more concrete and understandable.`}
+                />
+                <Accordion
+                  title="Enhancing Philosophical Understanding"
+                  content={`We value your feedback and contributions. Please share your remarks, comments, suggestions, and experiences by clicking on the Contact Us button. Thank you for using the Philos DH Picture Gallery App. Dive into the world of philosophy with us and explore the rich visual representations of philosophical ideas.`}
                 />
               </div>
             </div>
           )}
         </section>
-        {isModalOpen && selectedImage && (
-          <GalleryModal
-            images={images}
-            onClose={handleCloseModal}
-          />
-        )}
-      </main>
+      {isModalOpen && selectedImage && (
+        <GalleryModal
+          images={images}
+          onClose={handleCloseModal}
+        />
+      )}
+    </main>
     </>
   );
 };
