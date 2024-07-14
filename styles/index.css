@@ -35,7 +35,7 @@ section {
 
 /* Image Card Styles */
 .image-card {
-  @apply relative block mb-6 cursor-pointer group;
+  @apply relative block mb-6 cursor-pointer; /* Removed 'group' */
 }
 
 .image-card img {
