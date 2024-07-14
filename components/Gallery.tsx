@@ -92,12 +92,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
 
   return (
     <>
-      <Header
-        autoPlay={autoPlay}
-        handlePreviousImage={handlePreviousImage}
-        handleNextImage={handleNextImage}
-        handleToggleAutoPlay={handleToggleAutoPlay}
-      />
+      
       <main className="flex h-screen">
         <aside className="w-1/4 overflow-y-scroll p-4 bg-gray-800">
           {images.map((image) => (
