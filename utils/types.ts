@@ -1,6 +1,3 @@
-// utils/types.ts
-
-// Define the ImageProps interface
 export interface ImageProps {
   id: number;
   height: number;
@@ -13,7 +10,6 @@ export interface ImageProps {
   details?: string;
 }
 
-// Define the SharedModalProps interface
 export interface SharedModalProps {
   index: number;
   images: ImageProps[];

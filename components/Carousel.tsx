@@ -8,10 +8,14 @@ import SharedModal from "./SharedModal";
 interface CarouselProps {
   index: number;
   currentPhoto: ImageProps;
-  images: ImageProps[]; // Add this line to define the images prop
+  images: ImageProps[];
 }
 
-export default function Carousel({ index, currentPhoto, images }: CarouselProps) {
+export default function Carousel({
+  index,
+  currentPhoto,
+  images,
+}: CarouselProps) {
   const router = useRouter();
   const [, setLastViewedPhoto] = useLastViewedPhoto();
 
@@ -44,11 +48,11 @@ export default function Carousel({ index, currentPhoto, images }: CarouselProps)
       </button>
       <SharedModal
         index={index}
-        images={images} // Pass the images prop here
         changePhotoId={changePhotoId}
         currentPhoto={currentPhoto}
         closeModal={closeModal}
         navigation={false}
+        images={images} // Add this line
       />
     </div>
   );
