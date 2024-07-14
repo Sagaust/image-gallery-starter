@@ -7,7 +7,12 @@ import cloudinary from "../../utils/cloudinary";
 import getBase64ImageUrl from "../../utils/generateBlurPlaceholder";
 import type { ImageProps } from "../../utils/types";
 
-const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
+interface HomeProps {
+  currentPhoto: ImageProps;
+  images: ImageProps[];
+}
+
+const Home: NextPage<HomeProps> = ({ currentPhoto, images }) => {
   const router = useRouter();
   const { photoId } = router.query;
   let index = Number(photoId);
@@ -22,7 +27,7 @@ const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
         <meta name="twitter:image" content={currentPhotoUrl} />
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">
-        <Carousel currentPhoto={currentPhoto} index={index} />
+        <Carousel currentPhoto={currentPhoto} index={index} images={images} />
       </main>
     </>
   );
@@ -42,6 +47,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       width: result.width,
       public_id: result.public_id,
       format: result.format,
+      title: result.context?.custom?.title || "",
+      description: result.context?.custom?.description || "",
     });
     i++;
   }
@@ -54,6 +61,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       currentPhoto: currentPhoto,
+      images: reducedResults, // Pass the entire array
     },
   };
 };
