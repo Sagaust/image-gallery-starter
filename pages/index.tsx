@@ -7,6 +7,7 @@ import Gallery from "../components/Gallery";
 import type { ImageProps } from "../utils/types";
 import path from 'path';
 import { readCSV } from '../utils/readCSV';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
   const [images, setImages] = useState<ImageProps[]>(initialImages);
