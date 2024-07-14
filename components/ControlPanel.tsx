@@ -1,5 +1,6 @@
 // components/ControlPanel.tsx
-import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
+// components/ControlPanel.tsx
+import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from '@heroicons/react/24/outline'; // Changed to 'outline'
 
 interface ControlPanelProps {
   autoPlay: boolean;
