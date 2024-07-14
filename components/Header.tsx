@@ -22,17 +22,6 @@ const Header: React.FC<HeaderProps> = ({
         <title>Learning Philosophy through Pictures</title>
       </Head>
       <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
-        <div className="flex items-center space-x-4">
-          <button onClick={handlePreviousImage} className="p-2 bg-gray-700 rounded-lg">
-            <ChevronLeftIcon className="h-6 w-6" />
-          </button>
-          <button onClick={handleNextImage} className="p-2 bg-gray-700 rounded-lg">
-            <ChevronRightIcon className="h-6 w-6" />
-          </button>
-          <button onClick={handleToggleAutoPlay} className="p-2 bg-gray-700 rounded-lg">
-          {autoPlay ? <PauseIcon className="h-6 w-6" /> : <PlayIcon className="h-6 w-6" />}
-          </button>
-        </div>
         <h1 className="text-xl font-bold">Philos DH Gallery</h1>
         <nav>
           <ul className="flex space-x-4">
@@ -54,6 +43,17 @@ const Header: React.FC<HeaderProps> = ({
             {/* Add more links as needed */}
           </ul>
         </nav>
+        <div className="flex items-center space-x-4">
+          <button onClick={handlePreviousImage} className="p-2 bg-gray-700 rounded-lg">
+            <ChevronLeftIcon className="h-6 w-6" />
+          </button>
+          <button onClick={handleNextImage} className="p-2 bg-gray-700 rounded-lg">
+            <ChevronRightIcon className="h-6 w-6" />
+          </button>
+          <button onClick={handleToggleAutoPlay} className="p-2 bg-gray-700 rounded-lg">
+            {autoPlay ? <PauseIcon className="h-6 w-6" /> : <PlayIcon className="h-6 w-6" />}
+          </button>
+        </div>
       </header>
     </>
   );
