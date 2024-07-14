@@ -43,8 +43,10 @@ const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
 
 export async function getStaticProps() {
   const folder = process.env.NEXT_PUBLIC_DEFAULT_FOLDER || "default";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   try {
-    const res = await fetch(`http://localhost:3000/api/images?folder=${folder}`);
+    const res = await fetch(`${baseUrl}/api/images?folder=${folder}`);
     if (!res.ok) {
       console.error(`Failed to fetch images: ${res.statusText}`);
       return { props: { initialImages: [] } };
