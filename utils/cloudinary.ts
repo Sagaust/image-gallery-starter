@@ -2,7 +2,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 
 // Load environment variables from .env.local file
-dotenv.config({ path: new URL('../.env.local', import.meta.url).pathname });
+dotenv.config({ path: path.join(__dirname, '../.env.local') }); 
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
