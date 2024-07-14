@@ -22,7 +22,7 @@ const saveDirectory = join(__dirname, '../public/images/phil_course');
 const mongoUri = process.env.MONGODB_URI as string;
 
 async function fetchAndSaveImages() {
-  const client = new MongoClient(mongoUri);
+  const client = new MongoClient(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
     await client.connect();
@@ -57,10 +57,6 @@ async function fetchAndSaveImages() {
 
       // Save metadata to a JSON file
       const metadataPath = join(saveDirectory, `${image.public_id}.json`);
-      fs.writeFileSync(metadataPath, JSON.stringify(image, null, 2));
-      console.log(`Saved metadata: ${metadataPath}`);
-
-      // Save metadata to MongoDB
       const metadata = {
         public_id: image.public_id,
         format: image.format,
@@ -74,8 +70,14 @@ async function fetchAndSaveImages() {
         url: image.url,
         secure_url: image.secure_url,
         folder: 'phil_course', // Add folder information if needed
+        title: image.context?.custom?.caption || '', // Include title from Cloudinary context
+        description: image.context?.custom?.description || '', // Include description from Cloudinary context
       };
 
+      fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
+      console.log(`Saved metadata: ${metadataPath}`);
+
+      // Save metadata to MongoDB
       await collection.updateOne(
         { public_id: image.public_id },
         { $set: metadata },
