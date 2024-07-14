@@ -1,31 +1,31 @@
 // components/Accordion.tsx
 import { useState } from 'react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 interface AccordionProps {
   title: string;
-  children: React.ReactNode;
+  content: string;
 }
 
-const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
+const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="mb-4">
       <button
-        className="flex items-center justify-between w-full p-4 text-left bg-gray-800 text-white rounded-lg focus:outline-none"
+        className="flex items-center justify-between w-full p-4 bg-gray-200 rounded-lg"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{title}</span>
         {isOpen ? (
-          <ChevronUpIcon className="w-5 h-5" />
+          <ChevronUpIcon className="h-5 w-5" />
         ) : (
-          <ChevronDownIcon className="w-5 h-5" />
+          <ChevronDownIcon className="h-5 w-5" />
         )}
       </button>
       {isOpen && (
-        <div className="p-4 bg-gray-900 text-white rounded-lg">
-          {children}
+        <div className="p-4 bg-gray-100 rounded-lg">
+          <p>{content}</p>
         </div>
       )}
     </div>

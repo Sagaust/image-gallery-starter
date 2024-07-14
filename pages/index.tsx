@@ -15,11 +15,11 @@ const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
   const { folder } = router.query;
 
   const handlePreviousImage = () => {
-    // Add your handlePreviousImage logic here
+    // Implement handlePreviousImage logic here
   };
 
   const handleNextImage = () => {
-    // Add your handleNextImage logic here
+    // Implement handleNextImage logic here
   };
 
   const handleToggleAutoPlay = () => {
