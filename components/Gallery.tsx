@@ -162,21 +162,17 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
                   title="User-Friendly Navigation"
                   content={`Our app is designed to assist learners at all levels—beginners, intermediates, and advanced students. By visualizing complex philosophical concepts through AI-generated images, we make abstract ideas more concrete and understandable.`}
                 />
-                <Accordion
-                  title="Enhancing Philosophical Understanding"
-                  content={`We value your feedback and contributions. Please share your remarks, comments, suggestions, and experiences by clicking on the Contact Us button. Thank you for using the Philos DH Picture Gallery App. Dive into the world of philosophy with us and explore the rich visual representations of philosophical ideas.`}
-                />
               </div>
             </div>
           )}
         </section>
-      {isModalOpen && selectedImage && (
-        <GalleryModal
-          images={images}
-          onClose={handleCloseModal}
-        />
-      )}
-    </main>
+        {isModalOpen && selectedImage && (
+          <GalleryModal
+            images={images}
+            onClose={handleCloseModal}
+          />
+        )}
+      </main>
     </>
   );
 };
