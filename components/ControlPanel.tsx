@@ -1,25 +1,33 @@
 // components/ControlPanel.tsx
-// components/ControlPanel.tsx
-import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from '@heroicons/react/24/outline'; // Changed to 'outline'
+import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from '@heroicons/react/24/outline'; // Ensure this path is correct
 
 interface ControlPanelProps {
   autoPlay: boolean;
-  toggleAutoPlay: () => void;
-  handleNextImage: () => void;
   handlePreviousImage: () => void;
+  handleNextImage: () => void;
+  handleToggleAutoPlay: () => void;
 }
 
-const ControlPanel: React.FC<ControlPanelProps> = ({ autoPlay, toggleAutoPlay, handleNextImage, handlePreviousImage }) => {
+const ControlPanel: React.FC<ControlPanelProps> = ({
+  autoPlay,
+  handlePreviousImage,
+  handleNextImage,
+  handleToggleAutoPlay,
+}) => {
   return (
-    <div className="control-panel flex items-center space-x-4">
-      <button onClick={handlePreviousImage} className="p-2 bg-gray-800 text-white rounded-lg shadow hover:bg-gray-700">
-        <ChevronLeftIcon className="h-6 w-6" />
+    <div className="flex items-center justify-center space-x-4">
+      <button onClick={handlePreviousImage}>
+        <ChevronLeftIcon className="w-6 h-6 text-gray-500 hover:text-gray-700" />
       </button>
-      <button onClick={toggleAutoPlay} className="p-2 bg-gray-800 text-white rounded-lg shadow hover:bg-gray-700">
-        {autoPlay ? <PauseIcon className="h-6 w-6" /> : <PlayIcon className="h-6 w-6" />}
+      <button onClick={handleToggleAutoPlay}>
+        {autoPlay ? (
+          <PauseIcon className="w-6 h-6 text-gray-500 hover:text-gray-700" />
+        ) : (
+          <PlayIcon className="w-6 h-6 text-gray-500 hover:text-gray-700" />
+        )}
       </button>
-      <button onClick={handleNextImage} className="p-2 bg-gray-800 text-white rounded-lg shadow hover:bg-gray-700">
-        <ChevronRightIcon className="h-6 w-6" />
+      <button onClick={handleNextImage}>
+        <ChevronRightIcon className="w-6 h-6 text-gray-500 hover:text-gray-700" />
       </button>
     </div>
   );

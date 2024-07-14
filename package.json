@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
-    "@heroicons/react": "^1.0.6",
+    "@heroicons/react": "^2.1.5",
     "cloudinary": "^1.41.3",
     "csv-parser": "^3.0.0",
     "dotenv": "^16.4.5",

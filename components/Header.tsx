@@ -1,37 +1,45 @@
 // components/Header.tsx
-import Head from "next/head";
-import Link from "next/link";
+import Link from 'next/link';
+import ControlPanel from './ControlPanel';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  autoPlay: boolean;
+  handlePreviousImage: () => void;
+  handleNextImage: () => void;
+  handleToggleAutoPlay: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({
+  autoPlay,
+  handlePreviousImage,
+  handleNextImage,
+  handleToggleAutoPlay,
+}) => {
   return (
-    <>
-      <Head>
-        <title>Learning Philosophy through Pictures</title>
-      </Head>
-      <header className="bg-gray-900 p-4 text-white flex justify-between items-center">
-        <div className="text-lg font-bold">Image Gallery</div>
+    <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <div className="flex items-center space-x-4">
+        <Link href="/">
+          <a className="text-xl font-bold">Philos DH Gallery</a>
+        </Link>
         <nav>
-          <ul className="flex space-x-4">
-            <li>
-              <Link href={`/?folder=${process.env.NEXT_PUBLIC_DEFAULT_FOLDER}`} className="hover:text-gray-400">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href={`/?folder=${process.env.NEXT_PUBLIC_FOLDER1}`} className="hover:text-gray-400">
-                Philosophy Courses
-              </Link>
-            </li>
-            <li>
-              <Link href={`/?folder=${process.env.NEXT_PUBLIC_FOLDER2}`} className="hover:text-gray-400">
-                Philosophical Concepts
-              </Link>
-            </li>
-            {/* Add more links as needed */}
-          </ul>
+          <Link href="/">
+            <a className="mx-2">Home</a>
+          </Link>
+          <Link href="/about">
+            <a className="mx-2">About</a>
+          </Link>
+          <Link href="/contact">
+            <a className="mx-2">Contact</a>
+          </Link>
         </nav>
-      </header>
-    </>
+      </div>
+      <ControlPanel
+        autoPlay={autoPlay}
+        handlePreviousImage={handlePreviousImage}
+        handleNextImage={handleNextImage}
+        handleToggleAutoPlay={handleToggleAutoPlay}
+      />
+    </header>
   );
 };
 
