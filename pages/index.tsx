@@ -7,12 +7,24 @@ import Gallery from "../components/Gallery";
 import type { ImageProps } from "../utils/types";
 import path from 'path';
 import { readCSV } from '../utils/readCSV';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
   const [images, setImages] = useState<ImageProps[]>(initialImages);
+  const [autoPlay, setAutoPlay] = useState(false);
   const router = useRouter();
   const { folder } = router.query;
+
+  const handlePreviousImage = () => {
+    // Add your handlePreviousImage logic here
+  };
+
+  const handleNextImage = () => {
+    // Add your handleNextImage logic here
+  };
+
+  const handleToggleAutoPlay = () => {
+    setAutoPlay(!autoPlay);
+  };
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -35,7 +47,12 @@ const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
 
   return (
     <>
-      <Header />
+      <Header
+        autoPlay={autoPlay}
+        handlePreviousImage={handlePreviousImage}
+        handleNextImage={handleNextImage}
+        handleToggleAutoPlay={handleToggleAutoPlay}
+      />
       <Gallery images={images} />
       <Footer />
     </>
