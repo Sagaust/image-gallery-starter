@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({
       </Head>
       <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
         <h1 className="text-xl font-bold">Philos DH Gallery</h1>
-        <nav>
+        <nav className="flex items-center space-x-4">
           <ul className="flex space-x-4">
             <li>
               <Link href={`/?folder=${process.env.NEXT_PUBLIC_DEFAULT_FOLDER}`} className="hover:text-gray-400">
@@ -42,18 +42,18 @@ const Header: React.FC<HeaderProps> = ({
             </li>
             {/* Add more links as needed */}
           </ul>
+          <div className="flex items-center space-x-4">
+            <button onClick={handlePreviousImage} className="p-2 bg-gray-700 rounded-lg">
+              <ChevronLeftIcon className="h-6 w-6" />
+            </button>
+            <button onClick={handleNextImage} className="p-2 bg-gray-700 rounded-lg">
+              <ChevronRightIcon className="h-6 w-6" />
+            </button>
+            <button onClick={handleToggleAutoPlay} className="p-2 bg-gray-700 rounded-lg">
+              {autoPlay ? <PauseIcon className="h-6 w-6" /> : <PlayIcon className="h-6 w-6" />}
+            </button>
+          </div>
         </nav>
-        <div className="flex items-center space-x-4">
-          <button onClick={handlePreviousImage} className="p-2 bg-gray-700 rounded-lg">
-            <ChevronLeftIcon className="h-6 w-6" />
-          </button>
-          <button onClick={handleNextImage} className="p-2 bg-gray-700 rounded-lg">
-            <ChevronRightIcon className="h-6 w-6" />
-          </button>
-          <button onClick={handleToggleAutoPlay} className="p-2 bg-gray-700 rounded-lg">
-            {autoPlay ? <PauseIcon className="h-6 w-6" /> : <PlayIcon className="h-6 w-6" />}
-          </button>
-        </div>
       </header>
     </>
   );
