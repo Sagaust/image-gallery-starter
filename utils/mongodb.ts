@@ -4,19 +4,17 @@ const client = new MongoClient(process.env.MONGODB_URI);
 
 async function connectToDatabase() {
   try {
-    // Check if client is already connected
-    if (!client.topology || !client.topology.isConnected()) { 
-      // If not, try to establish a connection
-      await client.connect(); 
-    }
-    
-    const db = client.db(process.env.MONGODB_DB);
-    return { db, client };
+    // Check if the client is connected by attempting a command
+    await client.db().command({ ping: 1 });
+    console.log('Connected to MongoDB'); // Optional logging
   } catch (err) {
-    // Handle connection error
     console.error('Failed to connect to MongoDB:', err);
-    throw err; // Rethrow the error or handle it gracefully
+    await client.connect(); // Attempt connection if not connected
+    console.log('Connected to MongoDB (after initial failure)'); // Optional logging
   }
+  
+  const db = client.db(process.env.MONGODB_DB);
+  return { db, client };
 }
 
 export default connectToDatabase;
