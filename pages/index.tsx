@@ -5,13 +5,36 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import type { ImageProps } from "../utils/types";
-import path from 'path';
-import { readCSV } from '../utils/readCSV';
+import clientPromise from '../utils/mongodb';
 
 const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
   const [images, setImages] = useState<ImageProps[]>(initialImages);
   const router = useRouter();
   const { folder } = router.query;
+  const [autoPlay, setAutoPlay] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<ImageProps | null>(null);
+
+  const handlePreviousImage = () => {
+    if (selectedImage) {
+      const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
+      const previousIndex = (currentIndex - 1 + images.length) % images.length;
+      setSelectedImage(images[previousIndex]);
+      router.push(`/?photoId=${images[previousIndex].id}`, undefined, { shallow: true });
+    }
+  };
+
+  const handleNextImage = () => {
+    if (selectedImage) {
+      const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
+      const nextIndex = (currentIndex + 1) % images.length;
+      setSelectedImage(images[nextIndex]);
+      router.push(`/?photoId=${images[nextIndex].id}`, undefined, { shallow: true });
+    }
+  };
+
+  const handleToggleAutoPlay = () => {
+    setAutoPlay(!autoPlay);
+  };
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -35,10 +58,10 @@ const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
   return (
     <>
       <Header
-        autoPlay={false}
-        handlePreviousImage={() => {}}
-        handleNextImage={() => {}}
-        handleToggleAutoPlay={() => {}}
+        autoPlay={autoPlay}
+        handlePreviousImage={handlePreviousImage}
+        handleNextImage={handleNextImage}
+        handleToggleAutoPlay={handleToggleAutoPlay}
       />
       <Gallery images={images} />
       <Footer />
@@ -51,6 +74,10 @@ export async function getStaticProps() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   try {
+    const client = await clientPromise;
+    const db = client.db();
+    const metadataCollection = db.collection('image_metadata');
+
     const res = await fetch(`${baseUrl}/api/images?folder=${folder}`);
     if (!res.ok) {
       console.error(`Failed to fetch images: ${res.statusText}`);
@@ -58,9 +85,8 @@ export async function getStaticProps() {
     }
     const data = await res.json();
 
-    // Read metadata from CSV file
-    const csvFilePath = path.join(process.cwd(), 'phil_course.csv');
-    const metadata = await readCSV(csvFilePath);
+    // Fetch metadata from MongoDB
+    const metadata = await metadataCollection.find({}).toArray();
 
     // Merge metadata with images
     const imagesWithMetadata = data.images.map((image: ImageProps) => {
