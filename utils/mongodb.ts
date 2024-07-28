@@ -1,7 +1,7 @@
-// ../../utils/mongodb.ts
+// utils/mongodb.ts 
 import { MongoClient } from 'mongodb';
 
-const uri = process.env.MONGODB_URI || ''; // Make sure your URI is correctly set in the environment
+const uri = process.env.MONGODB_URI || ''; // Your MongoDB URI
 
 const options = {
   useNewUrlParser: true,
@@ -12,16 +12,16 @@ let cachedClient: MongoClient | null = null;
 
 export default async function connectToDatabase(): Promise<MongoClient> {
   if (cachedClient) {
-    return cachedClient; // Return the cached client if it exists
+    return cachedClient;
   }
 
   try {
     const client = await MongoClient.connect(uri, options);
 
-    // The following line can be optional, depending on your connection needs:
-    // await client.db("admin").command({ ping: 1 }); // Test the connection
+    // Optional: Test the connection
+    // await client.db("admin").command({ ping: 1 });
 
-    cachedClient = client; // Cache the connected client
+    cachedClient = client;
     return client;
   } catch (error) {
     console.error('Error connecting to database:', error);
