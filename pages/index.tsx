@@ -5,7 +5,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Gallery from "../components/Gallery";
 import type { ImageProps } from "../utils/types";
-import clientPromise from '../utils/mongodb';
+import clientPromise from '../utils/mongodb'; // Assuming this is your MongoDB helper
+import { MongoClient } from 'mongodb'; // Import MongoClient
 
 const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
   const [images, setImages] = useState<ImageProps[]>(initialImages);
@@ -82,8 +83,9 @@ export async function getStaticProps() {
 
   console.log('Base URL:', baseUrl);
 
+  let client: MongoClient | null = null;
   try {
-    const client = await clientPromise;
+    client = await clientPromise();
     const db = client.db();
     const metadataCollection = db.collection('image_metadata');
 
@@ -123,6 +125,11 @@ export async function getStaticProps() {
         initialImages: [],
       },
     };
+  } finally {
+    // Close the MongoDB connection after use
+    if (client) {
+      await client.close(); 
+    }
   }
 }
 
