@@ -27,7 +27,7 @@ async function fetchAndSaveImages() {
   try {
     await client.connect();
     const database = client.db('image_gallery');
-    const collection = database.collection('images');
+    const collection = database.collection('image_metadata');
 
     // Ensure the save directory exists
     if (!fs.existsSync(saveDirectory)) {

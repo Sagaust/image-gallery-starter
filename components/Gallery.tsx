@@ -10,6 +10,7 @@ import ImageCard from './ImageCard';
 import Header from './Header';
 import Accordion from './Accordion';
 
+
 interface GalleryProps {
   images: ImageProps[];
 }
@@ -92,7 +93,12 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
 
   return (
     <>
-      
+      <Header
+        autoPlay={autoPlay}
+        handlePreviousImage={handlePreviousImage}
+        handleNextImage={handleNextImage}
+        handleToggleAutoPlay={handleToggleAutoPlay}
+      />
       <main className="flex h-screen">
         <aside className="w-1/4 overflow-y-scroll p-4 bg-gray-800">
           {images.map((image) => (
@@ -103,7 +109,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
           {selectedImage ? (
             <div onClick={handleMainImageClick} className="cursor-pointer">
               <Image
-                alt="Selected gallery photo"
+                alt={selectedImage.title || "Selected gallery photo"}
                 className="rounded-lg"
                 placeholder="blur"
                 blurDataURL={selectedImage.blurDataUrl}
@@ -125,37 +131,15 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
               <div className="text-center">
                 <Logo />
                 <Accordion
-                  title="Welcome to Philos d - Learning Philosophy Through Pictures"
-                  content={`Philos d is an innovative project designed to make learning philosophy both engaging and accessible. By utilizing AI-generated images and a powerful backend infrastructure, we bring philosophical concepts to life through captivating visuals.`}
-                />
-                <Accordion
-                  title="A Unique Approach to Understanding Philosophy"
-                  content={`Our application seamlessly integrates frontend and backend technologies, with Next.js providing a robust framework for development and MongoDB handling our database operations. Images are stored and fetched from Superbase, an advanced image database, ensuring high efficiency and performance.`}
-                />
-                <Accordion
-                  title="Cutting-Edge Technology"
-                  content={`Handling a large volume of images is made simple with our automated metadata processing. Images and their metadata, including titles and descriptions, are programmatically fetched and organized. This ensures a streamlined and user-friendly experience.`}
-                />
-                <Accordion
-                  title="Automated Metadata Processing"
-                  content={`Images are categorized into clearly named folders in Superbase, allowing users to easily navigate and find the content they need. Each folder can be accessed through environmental variables defined in the .env.local file, ensuring secure and organized data management.`}
-                />
-                <Accordion
-                  title="Organized Image Folders"
-                  content={`Our application is built with a variety of dynamic components to enhance user experience:
-                    - Sidebar: Displays images based on the user’s selection from the navigation menu. For example, choosing "Philosophy Courses" fetches related images from the corresponding folder in Superbase.
-                    - Main Content Area: Shows a larger version of the selected image. Users can navigate through images using control buttons to move forward, backward, or play a slideshow.
-                    - Image Modal: Clicking on a larger image opens an image modal with a carousel for quick navigation through the collection. The modal supports full-screen display and image downloading with proper attribution.`}
-                />
-                <Accordion
-                  title="Dynamic Components"
-                  content={`- Collapsible Descriptions: Image descriptions are initially collapsed, allowing users to click and view detailed information as needed.
-                    - Control Buttons: Easily navigate through images with forward, backward, play, and pause controls.
-                    - Full-Screen Mode: View images in full-screen for a more immersive experience.`}
-                />
-                <Accordion
-                  title="User-Friendly Navigation"
-                  content={`Our app is designed to assist learners at all levels—beginners, intermediates, and advanced students. By visualizing complex philosophical concepts through AI-generated images, we make abstract ideas more concrete and understandable.`}
+                  title="About Philos DH Gallery"
+                  content={`This project titled Philos DH: Learning Philosophy with the use of pictures is one of the outstanding projects that I've recently completed.
+                  And it's exciting for many reasons because we have the combination of front-end and back-end which Next.js enabled, and then we have the database operation coming from MongoDB and a powerful image database named Superbase from which the images are stored programmatically fetched in the development area, and the metadata are systematically processed through automation, knowing that the application involves a very large number of images.
+                  Most of these images are AI generated and categorized into folders that are clearly named in the Superbase, and these folders are fetched separately in the app with the use of well-defined variables in the .env.local file, which is the environmental variables.
+                  As you will see in the app, the app is made up of various components.
+                  We have, in the landing page, the sidebar which has various images that come from the option that the user chooses in the navigation.
+                  For instance, if the user chooses philosophy courses, the app communicates with the Superbase, which is the image repository, to fetch images particularly stored in the philosophy courses folder.
+                  These images are fetched along with their metadata, including titles and descriptions, providing a rich and informative experience.
+                  `}
                 />
               </div>
             </div>

@@ -10,7 +10,7 @@ import clientPromise from '../utils/mongodb';
 const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
   const [images, setImages] = useState<ImageProps[]>(initialImages);
   const router = useRouter();
-  const { folder } = router.query;
+  const { folder, photoId } = router.query;
   const [autoPlay, setAutoPlay] = useState(false);
   const [selectedImage, setSelectedImage] = useState<ImageProps | null>(null);
 
@@ -55,6 +55,13 @@ const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
     }
   }, [folder]);
 
+  useEffect(() => {
+    if (photoId) {
+      const image = images.find((img) => img.id === Number(photoId));
+      setSelectedImage(image || null);
+    }
+  }, [photoId, images]);
+
   return (
     <>
       <Header
@@ -71,7 +78,9 @@ const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
 
 export async function getStaticProps() {
   const folder = process.env.NEXT_PUBLIC_DEFAULT_FOLDER || "default";
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  console.log('Base URL:', baseUrl);
 
   try {
     const client = await clientPromise;
@@ -87,16 +96,20 @@ export async function getStaticProps() {
 
     // Fetch metadata from MongoDB
     const metadata = await metadataCollection.find({}).toArray();
+    console.log('Fetched metadata:', metadata);
 
     // Merge metadata with images
     const imagesWithMetadata = data.images.map((image: ImageProps) => {
       const meta = metadata.find(m => m.public_id === image.public_id);
+      console.log('Matching metadata:', meta);
       return {
         ...image,
         title: meta?.title || '',
         description: meta?.description || '',
       };
     });
+
+    console.log('Images with metadata:', imagesWithMetadata);
 
     return {
       props: {
