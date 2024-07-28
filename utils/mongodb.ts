@@ -1,11 +1,14 @@
 // utils/mongodb.ts 
-import { MongoClient } from 'mongodb';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const uri = process.env.MONGODB_URI || ''; // Your MongoDB URI
 
 const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
 };
 
 let cachedClient: MongoClient | null = null;
