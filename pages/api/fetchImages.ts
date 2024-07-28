@@ -9,10 +9,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return;
   }
 
-  const { db } = await connectToDatabase();
+  // Corrected database connection
+  const client = await connectToDatabase();
+  const db = client.db(); // Get the database instance
   const collection = db.collection('image_metadata');
 
-  let nextCursor: string | null = null; // Use correct type for next_cursor
+  let nextCursor: string | null = null;
 
   try {
     do {
@@ -21,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .with_field('context')
         .sort_by('public_id', 'desc')
         .max_results(500)
-        .next_cursor(nextCursor) // Use the method for setting next_cursor
+        .next_cursor(nextCursor)
         .execute();
 
       const formattedImages = result.resources.map(image => ({
@@ -33,21 +35,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }));
 
       if (formattedImages.length > 0) {
-        // ... (insert into MongoDB, handle errors)
-        await collection.insertMany(formattedImages, { ordered: false });
+        // ... (insert into MongoDB)
+        try {
+          await collection.insertMany(formattedImages, { ordered: false });
+        } catch (insertError) {
+          // Specific error handling for MongoDB insertion
+          console.error('Error inserting images into MongoDB:', insertError); 
+        }
       }
-      nextCursor = result.next_cursor; 
-    } while (nextCursor); // Use the new variable name
+
+      nextCursor = result.next_cursor;
+    } while (nextCursor); 
 
     res.status(200).json({ message: 'Images fetched and stored successfully' });
   } catch (error) {
-    // ... (error handling)
-    if (error.code === 11000) {
-      // Duplicate key error
-      console.warn('Duplicate key error:', error.message);
-    } else {
-      console.error('Error fetching images from Cloudinary or storing in MongoDB:', error);
-      res.status(500).json({ error: 'Error fetching images from Cloudinary or storing in MongoDB' });
-    }
+    // ... (general error handling)
+    console.error('Error fetching images:', error);
+    res.status(500).json({ error: 'Error fetching images' }); 
+  } finally {
+    // Ensure client connection is closed after operations
+    client.close();
   }
 }
