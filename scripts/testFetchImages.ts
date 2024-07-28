@@ -3,13 +3,14 @@ import { dirname, join } from 'path';
 import fs from 'fs';
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ServerApiVersion } from 'mongodb'; // Import ServerApiVersion
 import cloudinary from '../utils/cloudinary';
 
+// Resolve the current file and directory paths
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Explicitly load .env.local
+// Explicitly load .env.local configuration
 dotenv.config({ path: join(__dirname, '../.env.local') });
 
 console.log('Cloudinary Config:', {
@@ -18,13 +19,22 @@ console.log('Cloudinary Config:', {
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
+// Define the directory to save images
 const saveDirectory = join(__dirname, '../public/images/phil_course');
 const mongoUri = process.env.MONGODB_URI as string;
 
 async function fetchAndSaveImages() {
-  const client = new MongoClient(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+  // Create a new MongoClient with the ServerApiVersion option
+  const client = new MongoClient(mongoUri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
 
   try {
+    // Connect to the MongoDB client
     await client.connect();
     const database = client.db('image_gallery');
     const collection = database.collection('image_metadata');
@@ -90,6 +100,7 @@ async function fetchAndSaveImages() {
   } catch (error) {
     console.error('Error fetching and saving images:', error);
   } finally {
+    // Close the MongoDB connection
     await client.close();
   }
 }
