@@ -1,31 +1,30 @@
-// utils/mongodb.ts
+// ../../utils/mongodb.ts
 import { MongoClient } from 'mongodb';
 
-const uri = process.env.MONGODB_URI as string;
+const uri = process.env.MONGODB_URI || ''; // Make sure your URI is correctly set in the environment
+
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 
-let client;
-let clientPromise: Promise<MongoClient>;
+let cachedClient: MongoClient | null = null;
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Please add your Mongo URI to .env.local');
-}
-
-if (process.env.NODE_ENV === 'development') {
-  // In development mode, use a global variable so the client can be reused
-  // across module reloads caused by HMR (Hot Module Replacement).
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    global._mongoClientPromise = client.connect();
+export default async function connectToDatabase(): Promise<MongoClient> {
+  if (cachedClient) {
+    return cachedClient; // Return the cached client if it exists
   }
-  clientPromise = global._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
-}
 
-export default clientPromise;
+  try {
+    const client = await MongoClient.connect(uri, options);
+
+    // The following line can be optional, depending on your connection needs:
+    // await client.db("admin").command({ ping: 1 }); // Test the connection
+
+    cachedClient = client; // Cache the connected client
+    return client;
+  } catch (error) {
+    console.error('Error connecting to database:', error);
+    throw error; // Rethrow the error for handling in the calling function
+  }
+}
