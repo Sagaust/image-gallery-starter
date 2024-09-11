@@ -65,7 +65,12 @@ const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
 
   return (
     <>
-      <Header />
+      <Header 
+      autoPlay={autoPlay} 
+      handlePreviousImage={handlePreviousImage}
+      handleNextImage={handleNextImage}
+      handleToggleAutoPlay={handleToggleAutoPlay} 
+    />
       <Gallery images={images} />
       <Footer />
     </>
