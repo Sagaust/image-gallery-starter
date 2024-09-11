@@ -40,6 +40,11 @@ const Header: React.FC<HeaderProps> = ({
                 Philosophical Concepts
               </Link>
             </li>
+            <li>
+              <Link href={`/?folder=${process.env.NEXT_PUBLIC_FOLDER4}`} className="hover:text-gray-400">
+                Thought Experiments
+              </Link>
+            </li>
             {/* Add more links as needed */}
           </ul>
           <div className="flex items-center space-x-4">
