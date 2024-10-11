@@ -8,7 +8,7 @@ import { useLastViewedPhoto } from '../utils/useLastViewedPhoto';
 import Logo from '../components/Icons/Logo';
 import ImageCard from './ImageCard';
 import Header from './Header';
-import Accordion from './Accordion';
+// import Accordion from './Accordion';
 
 
 interface GalleryProps {
@@ -130,17 +130,41 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <Logo />
-                <Accordion
-                  title="About Philos DH Gallery"
-                  content={`This project titled Philos DH: Learning Philosophy with the use of pictures is one of the outstanding projects that I've recently completed.
-                  And it's exciting for many reasons because we have the combination of front-end and back-end which Next.js enabled, and then we have the database operation coming from MongoDB and a powerful image database named Superbase from which the images are stored programmatically fetched in the development area, and the metadata are systematically processed through automation, knowing that the application involves a very large number of images.
-                  Most of these images are AI generated and categorized into folders that are clearly named in the Superbase, and these folders are fetched separately in the app with the use of well-defined variables in the .env.local file, which is the environmental variables.
-                  As you will see in the app, the app is made up of various components.
-                  We have, in the landing page, the sidebar which has various images that come from the option that the user chooses in the navigation.
-                  For instance, if the user chooses philosophy courses, the app communicates with the Superbase, which is the image repository, to fetch images particularly stored in the philosophy courses folder.
-                  These images are fetched along with their metadata, including titles and descriptions, providing a rich and informative experience.
-                  `}
-                />
+<div className="mt-6">
+        <h1 className="text-3xl font-bold">Welcome to Philosophy AI LAB</h1>
+        
+        <h2 className="text-2xl font-bold mt-6">Project Description:</h2>
+        <p className="mt-2 text-base leading-6">
+          The goal of this project is to explore various ways in which Text-to-Image (TTI) AI models can enhance the visualization and reinterpretation of philosophical concepts, ideas, theories, and thought experiments. It addresses how we can better understand complex philosophical terminologies through imaginative and perceptual experiences of AI-generated images.
+        </p>
+        <p className="mt-4 text-base leading-6">
+          As a researcher in Experimental Philosophy, Visual Epistemology, and Digital Humanities, I have created this gallery to serve as a digital resource that helps users develop their own subjective interpretations of images through immersive experiences and reflective engagement with the collections.
+        </p>
+        
+        <h2 className="text-2xl font-bold mt-6">Quick Tips for Smooth Exploration of This Platform:</h2>
+        <ul className="mt-2 text-base leading-6 text-left list-disc list-inside">
+          <li>
+            <strong>To View Image Collections</strong>: Click on the buttons in the menu bar.
+          </li>
+          <li className="mt-1">
+            <strong>To View Images in Full Screen</strong>: Click on the thumbnails in the sidebar.
+          </li>
+          <li className="mt-1">
+            <strong>To Start the Image Carousel</strong>: Click on the large images shown in the main content area.
+          </li>
+        </ul>
+        
+        <h2 className="text-2xl font-bold mt-6">Acknowledgements:</h2>
+        <p className="mt-2 text-base leading-6">
+          In developing this project, I adapted code available from Vercel’s Image Gallery Starter Template and used Next.js (as the web framework), Cloudinary (for storing images), Tailwind CSS (for styling), and MongoDB (as the database storage). All the images were generated using AI models with prompts crafted using ChatGPT 4.0. For continuous development, I intend to include my prompts, titles, or descriptions to provide users with a more enriched and informative experience.
+        </p>
+        <p className="mt-4 text-base leading-6">
+          Note that this is an open-source project, and anyone can freely download these images and reference this portal. For further information or suggestions, kindly contact me, Augustine Farinola, via email at{' '}
+          <a href="mailto:austineaf@gmail.com" className="text-blue-500 underline">
+            austineaf@gmail.com
+          </a>.
+        </p>
+      </div>
               </div>
             </div>
           )}
