@@ -137,7 +137,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
                 <div className="mt-6">
                   <h1 className="text-3xl font-bold">Welcome to Philosophy AI LAB</h1>
 
-                  <h2 className="text-2xl font-bold mt-6">Welcome to Philosophy AI LAB</h2>
+                  <h1 className="text-2xl font-bold mt-6">Welcome to Philosophy AI LAB</h1>
                   <p className="mt-2 text-base leading-6">
                     The goal of this project is to explore various ways in which Text-to-Image (TTI) AI models can enhance the visualization and reinterpretation of philosophical concepts, ideas, theories, and thought experiments. It addresses how we can better understand complex philosophical terminologies through imaginative and perceptual experiences of AI-generated images.
                   </p>
