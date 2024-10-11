@@ -5,7 +5,8 @@ import Gallery from "../components/Gallery";
 import Footer from "../components/Footer";
 import type { ImageProps } from "../utils/types";
 import getResults from '../utils/getResults';
-import imageMetadata from '../data/imageMetadata.json'; // Adjust the path as needed
+import fs from 'fs';
+import path from 'path';
 
 const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
   const [images, setImages] = useState<ImageProps[]>(initialImages);
@@ -61,13 +62,30 @@ export async function getStaticProps() {
       blurDataUrl: resource.blurDataUrl || '',
     }));
 
-    // Import metadata from the data directory
-    // Adjust the path and file name to match your data
-    const imageMetadata = require('../data/imageMetadata.json');
+    // Read all JSON files from the /data directory
+    const dataDirectory = path.join(process.cwd(), 'data');
+    const files = fs.readdirSync(dataDirectory);
+
+    const imageMetadata = files
+      .filter((file) => file.endsWith('.json'))
+      .map((file) => {
+        const filePath = path.join(dataDirectory, file);
+        const jsonData = fs.readFileSync(filePath, 'utf8');
+        const data = JSON.parse(jsonData);
+
+        // Extract public_id from filename (without extension)
+        const public_id = path.parse(file).name;
+
+        return {
+          public_id,
+          title: data.title || '',
+          description: data.description || '',
+        };
+      });
 
     // Merge metadata with images
     const imagesWithMetadata = images.map((image: ImageProps) => {
-      const meta = imageMetadata.find((m: any) => m.public_id === image.public_id);
+      const meta = imageMetadata.find((m) => m.public_id === image.public_id);
       return {
         ...image,
         title: meta?.title || '',
