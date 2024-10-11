@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Gallery from "../components/Gallery";
 import Footer from "../components/Footer";
 import type { ImageProps } from "../utils/types";
-import clientPromise from '../utils/mongodb';
+import connectToDatabase from '../utils/mongodb'; // Import connectToDatabase
 import getResults from '../utils/getResults';
 
 const Home: React.FC<{ initialImages: ImageProps[] }> = ({ initialImages }) => {
@@ -62,7 +62,7 @@ export async function getStaticProps() {
     }));
 
     // Fetch metadata from MongoDB
-    const client = await clientPromise;
+    const client = await connectToDatabase(); // Use connectToDatabase()
     const db = client.db();
     const metadataCollection = db.collection('image_metadata');
     const metadata = await metadataCollection.find({}).toArray();
