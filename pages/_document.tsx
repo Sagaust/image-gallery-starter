@@ -8,7 +8,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <meta
-            name="Philos-DH"
+            name="Philosophy AI LAB"
             content="Learning Philosophy through Visualization"
           />
           
