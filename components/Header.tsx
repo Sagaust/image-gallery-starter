@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({
         <title>Learning Philosophy through Pictures</title>
       </Head>
       <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
-        <h1 className="text-xl font-bold">Philos DH Gallery</h1>
+        <h1 className="text-xl font-bold">Philosopy of AI DH Gallery</h1>
         <nav className="flex items-center space-x-4">
           <ul className="flex space-x-4">
             <li>
