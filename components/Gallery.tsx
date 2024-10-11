@@ -1,4 +1,5 @@
 // components/Gallery.tsx
+// components/Gallery.tsx
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -8,7 +9,6 @@ import { useLastViewedPhoto } from '../utils/useLastViewedPhoto';
 import Logo from '../components/Icons/Logo';
 import ImageCard from './ImageCard';
 import Header from './Header';
-// import Accordion from './Accordion'; // Keep this commented out
 
 interface GalleryProps {
   images: ImageProps[];
@@ -20,9 +20,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
   const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto();
   const [selectedImage, setSelectedImage] = useState<ImageProps | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [autoPlay, setAutoPlay] = useState(false);
   const lastViewedPhotoRef = useRef<HTMLDivElement>(null);
-  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (lastViewedPhoto && !photoId) {
@@ -35,6 +33,8 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
     if (photoId) {
       const image = images.find((img) => img.id === Number(photoId));
       setSelectedImage(image || null);
+    } else {
+      setSelectedImage(null);
     }
   }, [photoId, images]);
 
@@ -52,56 +52,17 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
     router.push('/', undefined, { shallow: true });
   };
 
-  const handlePreviousImage = () => {
-    if (selectedImage) {
-      const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
-      const previousIndex = (currentIndex - 1 + images.length) % images.length;
-      setSelectedImage(images[previousIndex]);
-      router.push(`/?photoId=${images[previousIndex].id}`, undefined, { shallow: true });
-    }
-  };
-
-  const handleNextImage = () => {
-    if (selectedImage) {
-      const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
-      const nextIndex = (currentIndex + 1) % images.length;
-      setSelectedImage(images[nextIndex]);
-      router.push(`/?photoId=${images[nextIndex].id}`, undefined, { shallow: true });
-    }
-  };
-
-  const handleToggleAutoPlay = () => {
-    setAutoPlay(!autoPlay);
-  };
-
-  useEffect(() => {
-    if (autoPlay) {
-      autoPlayRef.current = setInterval(() => {
-        handleNextImage();
-      }, 3000);
-    } else if (autoPlayRef.current) {
-      clearInterval(autoPlayRef.current);
-    }
-
-    return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
-      }
-    };
-  }, [autoPlay, selectedImage]);
-
   return (
     <>
-      <Header
-        autoPlay={autoPlay}
-        handlePreviousImage={handlePreviousImage}
-        handleNextImage={handleNextImage}
-        handleToggleAutoPlay={handleToggleAutoPlay}
-      />
+      <Header />
       <main className="flex h-screen">
         <aside className="w-1/4 overflow-y-scroll p-4 bg-gray-800">
           {images.map((image) => (
-            <ImageCard key={image.id} image={image} onClick={() => handleSidebarImageClick(image.id)} />
+            <ImageCard
+              key={image.id}
+              image={image}
+              onClick={() => handleSidebarImageClick(image.id)}
+            />
           ))}
         </aside>
         <section className="flex-1 p-4">
@@ -120,7 +81,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
                   (max-width: 1536px) 100vw,
                   100vw"
               />
-              {/* Replace Accordion with direct text elements */}
+              {/* Display title and description directly */}
               <div className="mt-4">
                 <h2 className="text-2xl font-bold">
                   {selectedImage.title || 'No Title'}
@@ -137,7 +98,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
                 <div className="mt-6">
                   <h1 className="text-3xl font-bold">Welcome to Philosophy AI LAB</h1>
 
-                  <h1 className="text-2xl font-bold mt-6">Welcome to Philosophy AI LAB</h1>
+                  <h1 className="text-2xl font-bold mt-6">Welcome to Philosophy AI GALLARY</h1>
                   <p className="mt-2 text-base leading-6">
                     The goal of this project is to explore various ways in which Text-to-Image (TTI) AI models can enhance the visualization and reinterpretation of philosophical concepts, ideas, theories, and thought experiments. It addresses how we can better understand complex philosophical terminologies through imaginative and perceptual experiences of AI-generated images.
                   </p>
