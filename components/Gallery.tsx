@@ -8,8 +8,7 @@ import { useLastViewedPhoto } from '../utils/useLastViewedPhoto';
 import Logo from '../components/Icons/Logo';
 import ImageCard from './ImageCard';
 import Header from './Header';
-// import Accordion from './Accordion';
-
+// import Accordion from './Accordion'; // Keep this commented out
 
 interface GalleryProps {
   images: ImageProps[];
@@ -109,7 +108,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
           {selectedImage ? (
             <div onClick={handleMainImageClick} className="cursor-pointer">
               <Image
-                alt={selectedImage.title || "Selected gallery photo"}
+                alt={selectedImage.title || 'Selected gallery photo'}
                 className="rounded-lg"
                 placeholder="blur"
                 blurDataURL={selectedImage.blurDataUrl}
@@ -121,50 +120,55 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
                   (max-width: 1536px) 100vw,
                   100vw"
               />
-              <Accordion
-                title={selectedImage.title || 'No Title'}
-                content={selectedImage.description || 'No Description'}
-              />
+              {/* Replace Accordion with direct text elements */}
+              <div className="mt-4">
+                <h2 className="text-2xl font-bold">
+                  {selectedImage.title || 'No Title'}
+                </h2>
+                <p className="mt-2 text-base leading-6">
+                  {selectedImage.description || 'No Description'}
+                </p>
+              </div>
             </div>
           ) : (
             <div className="flex items-center justify-center h-full">
-              <div className="text-center">
+              <div className="text-center max-w-3xl mx-auto p-4">
                 <Logo />
-<div className="mt-6">
-        <h1 className="text-3xl font-bold">Welcome to Philosophy AI LAB</h1>
-        
-        <h2 className="text-2xl font-bold mt-6">Project Description:</h2>
-        <p className="mt-2 text-base leading-6">
-          The goal of this project is to explore various ways in which Text-to-Image (TTI) AI models can enhance the visualization and reinterpretation of philosophical concepts, ideas, theories, and thought experiments. It addresses how we can better understand complex philosophical terminologies through imaginative and perceptual experiences of AI-generated images.
-        </p>
-        <p className="mt-4 text-base leading-6">
-          As a researcher in Experimental Philosophy, Visual Epistemology, and Digital Humanities, I have created this gallery to serve as a digital resource that helps users develop their own subjective interpretations of images through immersive experiences and reflective engagement with the collections.
-        </p>
-        
-        <h2 className="text-2xl font-bold mt-6">Quick Tips for Smooth Exploration of This Platform:</h2>
-        <ul className="mt-2 text-base leading-6 text-left list-disc list-inside">
-          <li>
-            <strong>To View Image Collections</strong>: Click on the buttons in the menu bar.
-          </li>
-          <li className="mt-1">
-            <strong>To View Images in Full Screen</strong>: Click on the thumbnails in the sidebar.
-          </li>
-          <li className="mt-1">
-            <strong>To Start the Image Carousel</strong>: Click on the large images shown in the main content area.
-          </li>
-        </ul>
-        
-        <h2 className="text-2xl font-bold mt-6">Acknowledgements:</h2>
-        <p className="mt-2 text-base leading-6">
-          In developing this project, I adapted code available from Vercel’s Image Gallery Starter Template and used Next.js (as the web framework), Cloudinary (for storing images), Tailwind CSS (for styling), and MongoDB (as the database storage). All the images were generated using AI models with prompts crafted using ChatGPT 4.0. For continuous development, I intend to include my prompts, titles, or descriptions to provide users with a more enriched and informative experience.
-        </p>
-        <p className="mt-4 text-base leading-6">
-          Note that this is an open-source project, and anyone can freely download these images and reference this portal. For further information or suggestions, kindly contact me, Augustine Farinola, via email at{' '}
-          <a href="mailto:austineaf@gmail.com" className="text-blue-500 underline">
-            austineaf@gmail.com
-          </a>.
-        </p>
-      </div>
+                <div className="mt-6">
+                  <h1 className="text-3xl font-bold">Welcome to Philosophy AI LAB</h1>
+
+                  <h2 className="text-2xl font-bold mt-6">Project Description:</h2>
+                  <p className="mt-2 text-base leading-6">
+                    The goal of this project is to explore various ways in which Text-to-Image (TTI) AI models can enhance the visualization and reinterpretation of philosophical concepts, ideas, theories, and thought experiments. It addresses how we can better understand complex philosophical terminologies through imaginative and perceptual experiences of AI-generated images.
+                  </p>
+                  <p className="mt-4 text-base leading-6">
+                    As a researcher in Experimental Philosophy, Visual Epistemology, and Digital Humanities, I have created this gallery to serve as a digital resource that helps users develop their own subjective interpretations of images through immersive experiences and reflective engagement with the collections.
+                  </p>
+
+                  <h2 className="text-2xl font-bold mt-6">Quick Tips for Smooth Exploration of This Platform:</h2>
+                  <ul className="mt-2 text-base leading-6 text-left list-disc list-inside">
+                    <li>
+                      <strong>To View Image Collections</strong>: Click on the buttons in the menu bar.
+                    </li>
+                    <li className="mt-1">
+                      <strong>To View Images in Full Screen</strong>: Click on the thumbnails in the sidebar.
+                    </li>
+                    <li className="mt-1">
+                      <strong>To Start the Image Carousel</strong>: Click on the large images shown in the main content area.
+                    </li>
+                  </ul>
+
+                  <h2 className="text-2xl font-bold mt-6">Acknowledgements:</h2>
+                  <p className="mt-2 text-base leading-6">
+                    In developing this project, I adapted code available from Vercel’s Image Gallery Starter Template and used Next.js (as the web framework), Cloudinary (for storing images), Tailwind CSS (for styling), and MongoDB (as the database storage). All the images were generated using AI models with prompts crafted using ChatGPT 4.0. For continuous development, I intend to include my prompts, titles, or descriptions to provide users with a more enriched and informative experience.
+                  </p>
+                  <p className="mt-4 text-base leading-6">
+                    Note that this is an open-source project, and anyone can freely download these images and reference this portal. For further information or suggestions, kindly contact me, Augustine Farinola, via email at{' '}
+                    <a href="mailto:austineaf@gmail.com" className="text-blue-500 underline">
+                      austineaf@gmail.com
+                    </a>.
+                  </p>
+                </div>
               </div>
             </div>
           )}
